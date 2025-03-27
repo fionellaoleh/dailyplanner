@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Planner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFFBF5;
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: #FFE4E1;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            margin: 5px;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #FFB6C1;
+            cursor: pointer;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #FFF0F5;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .delete-btn {
+            background-color: #FF6B6B;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Daily Planner</h2>
+        <input type="text" id="task" placeholder="Tambahkan Kegiatan">
+        <input type="date" id="date">
+        <input type="time" id="time">
+        <button onclick="addTask()">Tambah</button>
+        <ul id="taskList"></ul>
+    </div>
+    <script>
+        function addTask() {
+            let taskInput = document.getElementById("task").value;
+            let dateInput = document.getElementById("date").value;
+            let timeInput = document.getElementById("time").value;
+            if (taskInput === "" || dateInput === "" || timeInput === "") {
+                alert("Harap isi semua bidang!");
+                return;
+            }
+            let ul = document.getElementById("taskList");
+            let li = document.createElement("li");
+            li.innerHTML = `${taskInput} - ${dateInput} ${timeInput} <input type='checkbox' onchange='markDone(this)'> <button class='delete-btn' onclick='deleteTask(this)'>Hapus</button>`;
+            ul.appendChild(li);
+            document.getElementById("task").value = "";
+            document.getElementById("date").value = "";
+            document.getElementById("time").value = "";
+        }
+        function markDone(checkbox) {
+            let li = checkbox.parentElement;
+            li.style.textDecoration = checkbox.checked ? "line-through" : "none";
+        }
+        function deleteTask(button) {
+            let li = button.parentElement;
+            li.remove();
+        }
+    </script>
+</body>
+</html>
